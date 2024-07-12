@@ -1,10 +1,13 @@
 import React, {useState,useEffect} from 'react'
  import image from "./images/cosmetic homepa 18ad607e-7dcd-47c4-9186-a140f8f68d25.png"
  import "./Product.css"
+ import Cart from './Order';
+ import Carousel from 'react-bootstrap/Carousel';
+ import Logo from "./images/Screenshot 2024-07-12 112952.png";
 export default function Products() {
     const [productList, setProductList] =useState([]);
-    const [selectedReviews, setSelectedReviews] = useState(null);
- 
+    
+    const [cart, setCart] = useState([]);
     useEffect(()=>{
         fetch("https://dummyjson.com/products")
         .then((data)=> data.json())
@@ -22,7 +25,7 @@ export default function Products() {
             })),
           })));
         });
-        },[]);
+        },[productList]);
    
  
     //     .then((data)=>setProductList(data["products"]));
@@ -31,10 +34,15 @@ export default function Products() {
     const handleReview = (product) => {
         setSelectedReviews(product);
       };
+      const handleAddToCart = (product) => {
+        setCart([...cart, product]); // Add product to cart
+        alert("Product added to cart!");
+    }
    
   return (
-    <div style={{marginLeft:"200px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"10px",}}>
-        
+    <div style={{marginLeft:"200px",display:"grid",gridTemplateColumns:"1fr 1fr 1fr ",gap:"10px",}}>
+      
+        <img  src={Logo} style={{position:"absolute",left:"-10px",top:"10px"}}/>
  
           {productList.map((product, i)=>(
              <div key={i} style={{backgroundColor:"pink",borderRadius:"20px"}} >
@@ -43,10 +51,37 @@ export default function Products() {
 
 <h4 style={{position:"relative",left:"70px"}}>${product.price}</h4>
 <h4 style={{position:"relative",bottom:"70px",left:"240px"}}>Rating{product.rating}</h4>
-<button style={{ position: "relative", top: "-20px", left: "180px", textDecoration: "none", borderRadius: "50px", background: "white", padding: "0", cursor: "pointer",border:"2px solid white",padding:"5px",fontWeight:"bolder" }}>Add to cart</button>
+<button style={{ position: "relative", top: "-20px", left: "180px", textDecoration: "none", borderRadius: "50px", background: "white", padding: "0", cursor: "pointer",border:"2px solid white",padding:"5px",fontWeight:"bolder" } } onClick={() => handleAddToCart(product)}>Add to cart</button>
 
 </div>
+
             ))}
+              <div style={{ }}>
+                <h2>Cart</h2>
+                <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Confirm Buy</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.map((product, index) => (
+            <tr key={index}>
+              <td>{product.title}</td>
+              <td>${product.price}</td>
+              <td><button style={{ position: "relative", textDecoration: "none", borderRadius: "50px", background: "white", padding: "10px", cursor: "pointer",border:"2px solid white",padding:"10px",fontWeight:"bolder",color:"black" } }>Buy</button></td>
+              <td><img src={product.thumbnail}/></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+               
+            </div>
     </div>
  
    

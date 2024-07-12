@@ -3,3 +3,33 @@
     padding: 0%;
 
 }
+/* Assuming you have a CSS file or style section in your component */
+
+.table-container {
+    margin-top: 20px; /* Adjust spacing as needed */
+  }
+  
+  .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for a card-like effect */
+  }
+  
+  .table-container th,
+  .table-container td {
+    padding: 6px;
+    text-align: left;
+  }
+  
+  .table-container th {
+    background-color: pink; /* Light background for table header */
+  }
+  
+  .table-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
+  }
+  
+  .table-container tbody tr:hover {
+    background-color: #e0e0e0; /* Hover background color */
+  }
+  
